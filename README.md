@@ -9,12 +9,16 @@ This is a carpooling service, targetting people who commute to work or school ev
 
 * Create the user profile.
 <img src="images/signup.jpeg" width="200">
+
 * Login and authentication
 <img src="images/login.jpeg" width="200">
+
 * view user profile.
 <img src="images/profile.jpeg" width="200">
+
 * Create a new ride.
 <img src="images/addRide.jpeg" width="200">
+
 * View available rides.
 <img src="images/findRide.jpeg" width="200">
 
