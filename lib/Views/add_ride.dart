@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../util/location.dart';
 import 'package:groupool/util/location.dart';
 import 'package:groupool/theme/rounded_input_field.dart';
-//import 'package:groupool/theme/login_background.dart';
 import 'package:groupool/theme/rounded_button.dart';
 
 class AddRidePage extends StatefulWidget {
@@ -101,7 +100,7 @@ class _State extends State<AddRidePage> {
                               end_location.isNotEmpty) {
                             addRide(start_location, end_location, time, email);
                           } else {
-                            print("Dei empty da");
+                            print();
                           }
                         }())),
                 SizedBox(height: size.height * 0.03),
