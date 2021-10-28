@@ -1,4 +1,4 @@
-# groupool
+# Groupool
 
 A new Flutter project.
 
