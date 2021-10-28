@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "312724168847",
+    "project_id": "project1-6269d",
+    "storage_bucket": "project1-6269d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:312724168847:android:982a25176fd95c72b810fa",
+        "android_client_info": {
+          "package_name": "com.example.groupool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "312724168847-7d3p1oejmh0ke7mgloqlgahm0slfft18.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzmlXWZC9C-dt0PsUnCS2q8LevWFQ14Fs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "312724168847-7d3p1oejmh0ke7mgloqlgahm0slfft18.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
