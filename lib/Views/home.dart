@@ -17,45 +17,43 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String email = '', name = '';
+  String userEmail = '', name = '';
   var userData = null;
   var rideData = null;
-  var prefs, row;
+  var sharedPreference, row;
   @override
   void initState() {
-    // TODO: implement initState
-    initPrefs();
+    initsharedPreference();
     super.initState();
-    //getUserData(email);
   }
 
   void initPrefs() async {
-    prefs = await SharedPreferences.getInstance().then((value) => {
+    sharedPreference = await SharedPreferences.getInstance().then((value) => {
           setState(() {
-            prefs = value;
-            email = '${value.getString('useremail')}';
+            sharedPreference = value;
+            userEmail = '${value.getString('userEmail')}';
           })
         });
-    getUserData(email).then(
-      (data) {
+    getUserData(userEmail).then(
+      (userData) {
         setState(() {
-          userData = data;
+          userData = userData;
         });
       },
     );
 
-    getRideData().then((data) {
+    getRideData().then((userData) {
       setState(() {
-        rideData = data;
+        rideData = userData;
       });
     });
   }
 
   String getVal(String key) {
     String value = '';
-    SharedPreferences.getInstance().then((prefs) => {
+    SharedPreferences.getInstance().then((sharedPreference) => {
           setState(() async {
-            value = '${prefs.getString(key)}';
+            value = '${sharedPreference.getString(key)}';
           })
         });
     return value;
@@ -63,7 +61,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    //final firestoreInstance = FirebaseFirestore.instance;
     return Scaffold(
       appBar: AppBar(
         title: Row(
@@ -105,18 +102,18 @@ class _HomePageState extends State<HomePage> {
                           size: 100,
                         ),
                         Padding(padding: const EdgeInsets.symmetric(vertical:6.0),child: Text(
-                          '${userData['Name']}',
+                          '${userData['userName']}',
                           style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
                         ),),
                             
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical:8.0),
-                          child: Text(email,style: const TextStyle(fontSize: 17
+                          child: Text(userEmail,style: const TextStyle(fontSize: 17
                           ),),
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical:8.0),
-                          child: Text('${userData['Phone']}',style: const TextStyle(fontSize: 15),),
+                          child: Text('${userData['userPhone']}',style: const TextStyle(fontSize: 15),),
                         )
                       ],
                     ),
@@ -165,10 +162,7 @@ class _HomePageState extends State<HomePage> {
             }
         },
         items: const [
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.message),
-          //   label: "Chats",
-          // ),
+          
           BottomNavigationBarItem(
             icon: Icon(Icons.account_box),
             label: "Profile",
