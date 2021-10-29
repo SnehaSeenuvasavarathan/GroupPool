@@ -26,6 +26,7 @@ This is a carpooling service, targetting people who commute to work or school ev
 
 * Jahanvi Dave 
 * Sneha Seenuvasavarathan
+* Ruben Malvaez
 
 ## Resources for getting started with Flutter
 
