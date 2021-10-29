@@ -21,19 +21,17 @@ class AddRidePage extends StatefulWidget {
 class _State extends State<AddRidePage> {
   String start_location = "";
   String end_location = "";
-  String time = "10:00 AM";
+  String timeOfDay = "10:00 AM";
   var rideList = [];
-  var prefs, row;
-  String email = '';
+  var sharedPreferences, row;
+  String userEmail = '';
   void initState() {
     getRideData().then(
-      (data) {
+      (userData) {
         setState(() {
-          //rideData = data;
           print('HEREEEEEEEE');
-          //print('${data}');
-          if (data != null) {
-            rideList = data;
+          if (userData != null) {
+            rideList = userData;
             print('${rideList}');
           }
         });
@@ -43,10 +41,10 @@ class _State extends State<AddRidePage> {
     super.initState();
   }
   void initPrefs() async {
-    prefs = await SharedPreferences.getInstance().then((value) => {
+    sharedPreferences = await SharedPreferences.getInstance().then((value) => {
           setState(() {
-            prefs = value;
-            email = '${value.getString('useremail')}';
+            sharedPreferences = value;
+            userEmail = '${value.getString('useremail')}';
           })
         });
   }
@@ -73,11 +71,11 @@ class _State extends State<AddRidePage> {
                 RoundedInputField(
                   hintText: "Enter End Location",
                   onChanged: (value) {
-                    end_location = value;
+                  end_location = value;
                   },
                 ),
                 TextButton(
-                  child: const Text('Select time'),
+                  child: const Text('Select timeOfDay'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(16.0),
                     primary: Colors.pink,
@@ -85,7 +83,7 @@ class _State extends State<AddRidePage> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () => (() async {
-                    time = await _selectTime(context) as String;
+                    timeOfDay = await _selectTime(context) as String;
                   }()),
                 ),
                 TextButton(
@@ -98,7 +96,7 @@ class _State extends State<AddRidePage> {
                     onPressed: () => (() async {
                           if (start_location.isNotEmpty &&
                               end_location.isNotEmpty) {
-                            addRide(start_location, end_location, time, email);
+                            addRide(start_location, end_location, time, userEmail);
                           } else {
                             print();
                           }
@@ -111,9 +109,9 @@ class _State extends State<AddRidePage> {
   }
 }
 Future<String> _selectTime(BuildContext context) async {
-  final TimeOfDay? picked = await showTimePicker(
+  final TimeOfDay? pickedTime = await showTimePicker(
     context: context,
     initialTime: TimeOfDay.now(),
   );
-  return picked!.format(context);
+  return pickedTime!.format(context);
 }

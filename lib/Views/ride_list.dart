@@ -20,18 +20,16 @@ class RideListPage extends StatefulWidget {
 
 class _RideListPageState extends State<RideListPage> {
   var rideList = [];
-  var prefs, row;
-  String email = '';
+  var sharedPreferences, row;
+  String userEmail = '';
   @override
   void initState() {
     getRideData().then(
-      (data) {
+      (userData) {
         setState(() {
-          //rideData = data;
-          print('HEREEEEEEEE');
-          //print('${data}');
-          if (data != null) {
-            rideList = data;
+
+          if (userData != null) {
+            rideList = userData;
             print('${rideList}');
           }
         });
@@ -42,10 +40,10 @@ class _RideListPageState extends State<RideListPage> {
   }
 
   void initPrefs() async {
-    prefs = await SharedPreferences.getInstance().then((value) => {
+    sharedPreferences = await SharedPreferences.getInstance().then((value) => {
           setState(() {
-            prefs = value;
-            email = '${value.getString('useremail')}';
+            sharedPreferences = value;
+            userEmail = '${value.getString('userEmail')}';
           })
         });
   }
@@ -65,10 +63,10 @@ class _RideListPageState extends State<RideListPage> {
               return Padding(
                   padding: const EdgeInsets.all(10),
                   child: ListTile(
-                    title: Text('${rideList[index]['start']} ' +
+                    title: Text('${rideList[index]['startLocation']} ' +
                         'To' +
-                        ' ${rideList[index]['end']}'),
-                    subtitle: Text('${rideList[index]['time']}' +'\n' + '${rideList[index]['email']}'),
+                        ' ${rideList[index]['endLocation']}'),
+                    subtitle: Text('${rideList[index]['timeOfDay']}' +'\n' + '${rideList[index]['userEmail']}'),
                     trailing: TextButton(
                       child: Text('Request'),
                       onPressed: () {},
@@ -86,18 +84,17 @@ Map fetchRideList(dbREF) {
 }
 
 class CustomTile {
-  var start;
-  var end;
-  var time;
-  CustomTile(this.start, this.end, this.time);
+  var startLocation;
+  var endLocation;
+  var timeOfDay;
+  CustomTile(this.startLocation, this.endLocation, this.timeOfDay);
 }
 
 List generateTile(rideList) {
-  List l = [];
+  List userList = [];
   for (var i in rideList) {
-    print("in List");
-    l.add(i);
+    userList.add(i);
   }
-  print(l);
-  return l;
+  print(userList);
+  return userList;
 }
