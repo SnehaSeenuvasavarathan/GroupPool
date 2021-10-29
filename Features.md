@@ -14,11 +14,7 @@
     
 **View Profile:**
 
-<<<<<<< HEAD
-    -Displays user profile.
-=======
     -Displays users' profile.
->>>>>>> 71d476a6c2c4e540fb93d6914717e61cc4b19030
     -Provides options for starting a new ride, viewing the list of rides available and a logout feature.
     
 **Create Ride:**
@@ -36,12 +32,8 @@
     -Allows user to search for available rides based on Source and Destination.
     
 **Request Ride:**
-
-<<<<<<< HEAD
-    -Allows user to request an available ride.
-=======
+    
     -Allows users to request an available ride.
->>>>>>> 71d476a6c2c4e540fb93d6914717e61cc4b19030
     
 **Create Ride Group:**
 
