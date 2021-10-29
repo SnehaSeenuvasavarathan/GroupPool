@@ -28,7 +28,7 @@ upcoming:
 EditProfile-
     -Users should be able to edit their personal information
 GroupPeople-
-    -groups people who have requested to share the ride
+    -Groups people who have requested to share the ride
 ChatBox-
     -Users can chat with other users who initiate the ride
 
