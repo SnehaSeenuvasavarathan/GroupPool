@@ -14,7 +14,7 @@
     
 **View Profile:**
 
-    -Displays user profile.
+    -Displays users' profile.
     -Provides options for starting a new ride, viewing the list of rides available and a logout feature.
     
 **Create Ride:**
@@ -33,7 +33,7 @@
     
 **Request Ride:**
 
-    -Allows user to request an available ride.
+    -Allows users to request an available ride.
     
 **Create Ride Group:**
 
