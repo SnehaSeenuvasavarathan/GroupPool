@@ -1,0 +1,40 @@
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> 78608af4c827e7271633199a968b243d659cdf47
+
+The following is the list of classes that are likely to be required for the project
+
+SignUpPage- 
+    -Allows users to sign up for the app using user email, password andd phone number. 
+    -Standard validations are performed on the fields. 
+    -Unique user profile is generated and added to the database.
+SignInPage- 
+    -Users sign in using email and password
+    -Authentication is performed and the users are redirected to the profile HomePage
+HomePage-
+    -Displays user profile
+    -Provides options for starting a new ride, viewing the list of rides available and a logout feature
+AddRidePage-
+    -Users can enter the start and end location of the journey and select a time
+    -A unique ride is created and is associated with the user and added to the database
+RideListPage-
+    -Displays the list of rides available with the source, destination, time and the driver information
+    -Provides the option to request ride
+
+upcoming:
+
+EditProfile-
+    -Users should be able to edit their personal information
+GroupPeople-
+    -Groups people who have requested to share the ride
+ChatBox-
+    -Users can chat with other users who initiate the ride
+
+    
+
+
+
+
+

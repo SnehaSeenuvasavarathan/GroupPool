@@ -29,10 +29,8 @@ class _State extends State<AddRidePage> {
     getRideData().then(
       (userData) {
         setState(() {
-         
           if (userData != null) {
             rideList = userData;
-            
           }
         });
       },

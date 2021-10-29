@@ -9,18 +9,13 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-  
-   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Initialize FlutterFire
       future: _initialization,
       builder: (context, snapshot) {
-        // Check for errors
-        if (snapshot.hasError) {
-          // return SomethingWentWrong();
-        }
+        if (snapshot.hasError) {}
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
