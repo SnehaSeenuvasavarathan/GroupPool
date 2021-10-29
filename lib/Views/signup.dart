@@ -6,16 +6,14 @@ import 'package:owesome_validator/owesome_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:groupool/util/database.dart';
 
-import 'home.dart';
-
-class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   _State createState() => _State();
 }
 
-class _State extends State<SignupPage> {
+class _State extends State<SignUpPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -59,7 +57,6 @@ class _State extends State<SignupPage> {
                     ),
                   ),
                 ),
-
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
@@ -98,7 +95,7 @@ class _State extends State<SignupPage> {
                     controller: phoneController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Phone Number',
+                      labelText: 'Phone-Number',
                     ),
                   ),
                 ),
@@ -122,13 +119,14 @@ class _State extends State<SignupPage> {
                         } else if (!OwesomeValidator.phone(phoneController.text,
                             '${OwesomeValidator.patternPhone}')) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Invalid Number')));
+                              const SnackBar(
+                                  content: Text('Invalid Phone Number')));
                         } else if (!OwesomeValidator.password(
                             passwordController.text,
                             '${OwesomeValidator.passwordMinLen8withCamelAndSpecialChar}')) {
-                          // Scaffold.of(context).showSnackBar)
                           ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Invalid Pwd')));
+                              const SnackBar(
+                                  content: Text('Invalid Password')));
                         } else if (passwordController.text !=
                             confirmPasswordController.text) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -141,30 +139,22 @@ class _State extends State<SignupPage> {
                           registerWithEmailPassword(
                                   emailController.text, passwordController.text)
                               .then((user) => {
-                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const SignInPage()), (route) => false),
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignInPage()),
+                                        (route) => false),
                                     if (user != null)
                                       {print('${user.email} Registered!')}
                                   });
-                          // try {
-                          //   UserCredential userCredential =
-                          //       await auth.createUserWithEmailAndPassword(
-                          //           email: emailController.text,
-                          //           password: passwordController.text);
-                          // } on FirebaseAuthException catch (e) {
-                          //   if (e.code == 'weak-password') {
-                          //     print('The password provided is too weak.');
-                          //   } else if (e.code == 'email-already-in-use') {
-                          //     print(
-                          //         'The account already exists for that email.');
-                          //   }
-                          // } catch (e) {
-                          //   print(e);
-                          // }
-                          registerUser(nameController.text,emailController.text, phoneController.text).then((value) => {});
+
+                          registerUser(nameController.text,
+                                  emailController.text, phoneController.text)
+                              .then((value) => {});
                         }
                       },
                     )),
-                // ignore: avoid_unnecessary_containers
                 Container(
                     child: Row(
                   children: <Widget>[
@@ -178,7 +168,6 @@ class _State extends State<SignupPage> {
                       onPressed: () {
                         Navigator.pop(
                           context,
-                          //MaterialPageRoute(builder: (context) => const SignInPage()),
                         );
                       },
                     )
