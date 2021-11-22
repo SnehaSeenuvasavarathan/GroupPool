@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../util/location.dart';
 import 'package:groupool/util/location.dart';
 import 'package:groupool/theme/rounded_input_field.dart';
+//import 'package:groupool/theme/login_background.dart';
 import 'package:groupool/theme/rounded_button.dart';
 
 class AddRidePage extends StatefulWidget {
@@ -21,17 +22,19 @@ class AddRidePage extends StatefulWidget {
 class _State extends State<AddRidePage> {
   String start_location = "";
   String end_location = "";
-  String timeOfDay = "10:00 AM";
+  String time = "10:00 AM";
   var rideList = [];
-  var sharedPreferences, row;
-  String userEmail = '';
+  var prefs, row;
+  String email = '';
   void initState() {
     getRideData().then(
-      (userData) {
+      (data) {
         setState(() {
+          //rideData = data;
           print('HEREEEEEEEE');
-          if (userData != null) {
-            rideList = userData;
+          //print('${data}');
+          if (data != null) {
+            rideList = data;
             print('${rideList}');
           }
         });
@@ -41,10 +44,10 @@ class _State extends State<AddRidePage> {
     super.initState();
   }
   void initPrefs() async {
-    sharedPreferences = await SharedPreferences.getInstance().then((value) => {
+    prefs = await SharedPreferences.getInstance().then((value) => {
           setState(() {
-            sharedPreferences = value;
-            userEmail = '${value.getString('useremail')}';
+            prefs = value;
+            email = '${value.getString('useremail')}';
           })
         });
   }
@@ -71,11 +74,11 @@ class _State extends State<AddRidePage> {
                 RoundedInputField(
                   hintText: "Enter End Location",
                   onChanged: (value) {
-                  end_location = value;
+                    end_location = value;
                   },
                 ),
                 TextButton(
-                  child: const Text('Select timeOfDay'),
+                  child: const Text('Select time'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(16.0),
                     primary: Colors.pink,
@@ -83,7 +86,7 @@ class _State extends State<AddRidePage> {
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () => (() async {
-                    timeOfDay = await _selectTime(context) as String;
+                    time = await _selectTime(context) as String;
                   }()),
                 ),
                 TextButton(
@@ -96,9 +99,9 @@ class _State extends State<AddRidePage> {
                     onPressed: () => (() async {
                           if (start_location.isNotEmpty &&
                               end_location.isNotEmpty) {
-                            addRide(start_location, end_location, time, userEmail);
+                            addRide(start_location, end_location, time, email);
                           } else {
-                            print();
+                            print("Dei empty da");
                           }
                         }())),
                 SizedBox(height: size.height * 0.03),
@@ -109,9 +112,9 @@ class _State extends State<AddRidePage> {
   }
 }
 Future<String> _selectTime(BuildContext context) async {
-  final TimeOfDay? pickedTime = await showTimePicker(
+  final TimeOfDay? picked = await showTimePicker(
     context: context,
     initialTime: TimeOfDay.now(),
   );
-  return pickedTime!.format(context);
+  return picked!.format(context);
 }

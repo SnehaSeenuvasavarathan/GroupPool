@@ -7,28 +7,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-String? userID;
+String? uid;
 String? userEmail;
 Future<User?> signInWithEmailPassword(
-    String userEmail, String userPassword, BuildContext context) async {
+    String email, String password, BuildContext context) async {
   await Firebase.initializeApp();
   User? user;
 
   try {
     UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-      userEmail: userEmail,
-      userPassword: userPassword,
+      email: email,
+      password: password,
     );
     user = userCredential.user;
 
     if (user != null) {
-      userID = user.userID;
-      userEmail = user.userEmail;
+      uid = user.uid;
+      userEmail = user.email;
 
-      SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-      await sharedPreference.setBool('auth', true);
-      await sharedPreference.setString('useremail', userEmail.toString());
-      await sharedPreference.setString('userID', userID.toString());
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('auth', true);
+      //print(jsonEncode(user));
+      await prefs.setString('useremail', userEmail.toString());
+      await prefs.setString('uid', uid.toString());
+      print(prefs.getString('useremail'));
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
@@ -43,22 +45,22 @@ Future<User?> signInWithEmailPassword(
   return user;
 }
 
-Future<User?> registerWithEmailPassword(String userEmail, String userPassword) async {
+Future<User?> registerWithEmailPassword(String email, String password) async {
   // Initialize Firebase
   await Firebase.initializeApp();
   User? user;
 
   try {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
-      userEmail: userEmail,
-      userPassword: userPassword,
+      email: email,
+      password: password,
     );
 
     user = userCredential.user;
 
     if (user != null) {
-      userID = user.userID;
-      userEmail = user.userEmail;
+      uid = user.uid;
+      userEmail = user.email;
     }
   } catch (e) {
     print(e);

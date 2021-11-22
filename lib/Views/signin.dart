@@ -62,6 +62,7 @@ class _State extends State<SignInPage> {
                 ),
                 TextButton(
                   onPressed: () {
+                    //forgot password screen
                   },
                   style: TextButton.styleFrom(primary: Colors.pink),
                   child: const Text('Forgot Password'),
@@ -77,11 +78,13 @@ class _State extends State<SignInPage> {
                       onPressed: () {
                         if (!OwesomeValidator.name(emailController.text,
                             '${OwesomeValidator.patternEmail}')) {
+                          // Scaffold.of(context).showSnackBar)
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Invalid Name')));
                         } else if (!OwesomeValidator.password(
                             passwordController.text,
                             '${OwesomeValidator.passwordMinLen8withCamelAndSpecialChar}')) {
+                          // Scaffold.of(context).showSnackBar)
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Invalid Pwd')));
                         } else {
@@ -95,6 +98,7 @@ class _State extends State<SignInPage> {
                         }
                       },
                     )),
+                // ignore: avoid_unnecessary_containers
                 Container(
                     child: Row(
                   children: <Widget>[
@@ -109,7 +113,7 @@ class _State extends State<SignInPage> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SignUpPage()),
+                              builder: (context) => const SignupPage()),
                         );
                       },
                     )

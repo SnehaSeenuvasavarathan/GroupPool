@@ -13,9 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
+      // Initialize FlutterFire
       future: _initialization,
       builder: (context, snapshot) {
-        if (snapshot.hasError) {}
+        // Check for errors
+        if (snapshot.hasError) {
+          // return SomethingWentWrong();
+        }
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {

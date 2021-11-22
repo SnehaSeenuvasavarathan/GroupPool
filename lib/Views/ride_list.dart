@@ -20,16 +20,18 @@ class RideListPage extends StatefulWidget {
 
 class _RideListPageState extends State<RideListPage> {
   var rideList = [];
-  var sharedPreferences, row;
-  String userEmail = '';
+  var prefs, row;
+  String email = '';
   @override
   void initState() {
     getRideData().then(
-      (userData) {
+      (data) {
         setState(() {
-
-          if (userData != null) {
-            rideList = userData;
+          //rideData = data;
+          print('HEREEEEEEEE');
+          //print('${data}');
+          if (data != null) {
+            rideList = data;
             print('${rideList}');
           }
         });
@@ -40,10 +42,10 @@ class _RideListPageState extends State<RideListPage> {
   }
 
   void initPrefs() async {
-    sharedPreferences = await SharedPreferences.getInstance().then((value) => {
+    prefs = await SharedPreferences.getInstance().then((value) => {
           setState(() {
-            sharedPreferences = value;
-            userEmail = '${value.getString('userEmail')}';
+            prefs = value;
+            email = '${value.getString('useremail')}';
           })
         });
   }
@@ -63,10 +65,12 @@ class _RideListPageState extends State<RideListPage> {
               return Padding(
                   padding: const EdgeInsets.all(10),
                   child: ListTile(
-                    title: Text('${rideList[index]['startLocation']} ' +
+                    title: Text('${rideList[index]['start']} ' +
                         'To' +
-                        ' ${rideList[index]['endLocation']}'),
-                    subtitle: Text('${rideList[index]['timeOfDay']}' +'\n' + '${rideList[index]['userEmail']}'),
+                        ' ${rideList[index]['end']}'),
+                    subtitle: Text('${rideList[index]['time']}' +
+                        '\n' +
+                        '${rideList[index]['email']}'),
                     trailing: TextButton(
                       child: Text('Request'),
                       onPressed: () {},
@@ -84,17 +88,18 @@ Map fetchRideList(dbREF) {
 }
 
 class CustomTile {
-  var startLocation;
-  var endLocation;
-  var timeOfDay;
-  CustomTile(this.startLocation, this.endLocation, this.timeOfDay);
+  var start;
+  var end;
+  var time;
+  CustomTile(this.start, this.end, this.time);
 }
 
 List generateTile(rideList) {
-  List userList = [];
+  List l = [];
   for (var i in rideList) {
-    userList.add(i);
+    print("in List");
+    l.add(i);
   }
-  print(userList);
-  return userList;
+  print(l);
+  return l;
 }
