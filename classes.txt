@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-
-=======
-
->>>>>>> 78608af4c827e7271633199a968b243d659cdf47
-
 The following is the list of classes that are likely to be required for the project
 
 SignUpPage- 
