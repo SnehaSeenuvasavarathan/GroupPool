@@ -1,0 +1,9 @@
+// launch.json
+{
+    "name": "Run w/ --no-null-safety",
+    "type": "dart",
+    "request": "launch",
+    "args": [
+       "--no-sound-null-safety"
+    ]
+}
