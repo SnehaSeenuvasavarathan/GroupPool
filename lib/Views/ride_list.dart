@@ -19,9 +19,31 @@ class RideListPage extends StatefulWidget {
 }
 
 class _RideListPageState extends State<RideListPage> {
+  final TextEditingController _filter = new TextEditingController();
   var rideList = [];
+  Widget _appBarTitle = new Text('Groupool');
+  Icon _searchIcon = new Icon(Icons.search, color: Colors.white);
   var prefs, row;
   String email = '';
+  String _searchText = "";
+  List filteredRides = [];
+
+  _RideListPageState() {
+    _filter.addListener(() {
+      if (_filter.text.isEmpty) {
+        setState(() {
+          _searchText = "";
+          filteredRides = rideList;
+          // filteredNames = names;
+        });
+      } else {
+        setState(() {
+          _searchText = _filter.text;
+        });
+      }
+    });
+  }
+
   @override
   void initState() {
     getRideData().then(
@@ -32,6 +54,7 @@ class _RideListPageState extends State<RideListPage> {
           //print('${data}');
           if (data != null) {
             rideList = data;
+            filteredRides = rideList;
             print('${rideList}');
           }
         });
@@ -52,25 +75,72 @@ class _RideListPageState extends State<RideListPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (!(_searchText.isEmpty)) {
+      print("filtering");
+      List tempList = [];
+      for (int i = 0; i < rideList.length; i++) {
+        if (rideList[i]['start']
+                .toLowerCase()
+                .contains(_searchText.toLowerCase()) ||
+            rideList[i]['end']
+                .toLowerCase()
+                .contains(_searchText.toLowerCase())) {
+          tempList.add(rideList[i]);
+        }
+      }
+      filteredRides = tempList;
+    } else {
+      print("resetting");
+      filteredRides = rideList;
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text("GrouPool"),
+        title: _appBarTitle,
         backgroundColor: Colors.pink,
+        actions: <Widget>[
+          IconButton(
+              icon: _searchIcon,
+              onPressed: () {
+                setState(() {
+                  print("Search");
+                  if (this._searchIcon.icon == Icons.search) {
+                    print("s2");
+                    this._searchIcon =
+                        new Icon(Icons.close, color: Colors.white);
+                    this._appBarTitle = new TextField(
+                      controller: _filter,
+                      style: TextStyle(color: Colors.white),
+                      decoration: new InputDecoration(
+                        prefixIcon: new Icon(Icons.search, color: Colors.white),
+                        hintText: 'Search...',
+                      ),
+                    );
+                  } else {
+                    print("Close mode");
+                    this._searchIcon =
+                        new Icon(Icons.search, color: Colors.white);
+                    this._appBarTitle = new Text('Groupool');
+                    _searchText = "";
+                    _filter.clear();
+                  }
+                });
+              }),
+        ],
       ),
       body: Center(
         child: ListView.builder(
             padding: const EdgeInsets.all(8),
-            itemCount: rideList.length,
+            itemCount: filteredRides.length,
             itemBuilder: (BuildContext context, int index) {
               return Padding(
                   padding: const EdgeInsets.all(10),
                   child: ListTile(
-                    title: Text('${rideList[index]['start']} ' +
+                    title: Text('${filteredRides[index]['start']} ' +
                         'To' +
-                        ' ${rideList[index]['end']}'),
-                    subtitle: Text('${rideList[index]['time']}' +
+                        ' ${filteredRides[index]['end']}'),
+                    subtitle: Text('${filteredRides[index]['time']}' +
                         '\n' +
-                        '${rideList[index]['email']}'),
+                        '${filteredRides[index]['email']}'),
                     trailing: TextButton(
                       child: Text('Request'),
                       onPressed: () {},
