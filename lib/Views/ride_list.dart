@@ -107,6 +107,7 @@ class _RideListPageState extends State<RideListPage> {
                     print("s2");
                     this._searchIcon =
                         new Icon(Icons.close, color: Colors.white);
+                    print("changing icon...");
                     this._appBarTitle = new TextField(
                       controller: _filter,
                       style: TextStyle(color: Colors.white),

@@ -52,6 +52,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("emailID"),
                     controller: emailController,
                     // validator: EmailFieldValidator.validate,
                     decoration: const InputDecoration(
@@ -64,6 +65,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("userName"),
                     controller: nameController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -74,6 +76,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("password"),
                     obscureText: true,
                     controller: passwordController,
                     decoration: const InputDecoration(
@@ -85,6 +88,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("confirmPassword"),
                     obscureText: true,
                     controller: confirmPasswordController,
                     decoration: const InputDecoration(
@@ -96,6 +100,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("number"),
                     controller: phoneController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -107,6 +112,7 @@ class _State extends State<SignupPage> {
                     height: 50,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
+                      key: ValueKey("submit"),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.pink)),

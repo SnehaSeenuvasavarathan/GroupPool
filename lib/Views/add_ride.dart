@@ -68,12 +68,14 @@ class _State extends State<AddRidePage> {
                 SizedBox(height: size.height * 0.03),
                 SizedBox(height: size.height * 0.03),
                 RoundedInputField(
+                  key: ValueKey('start'),
                   hintText: "Enter Start Location",
                   onChanged: (value) {
                     start_location = value;
                   },
                 ),
                 RoundedInputField(
+                  key: ValueKey('end'),
                   hintText: "Enter End Location",
                   onChanged: (value) {
                     end_location = value;
@@ -88,6 +90,7 @@ class _State extends State<AddRidePage> {
                   ),
                   onPressed: () => (() async {
                     time = await _selectTime(context) as String;
+                    print(time);
                   }()),
                 ),
                 TextButton(

@@ -3,10 +3,12 @@ import 'package:groupool/theme/text_field_container.dart';
 import 'package:groupool/theme/login_colors.dart';
 
 class RoundedInputField extends StatelessWidget {
+  final Key key;
   final String hintText;
   final IconData icon;
   final ValueChanged<String> onChanged;
   const RoundedInputField({
+    required this.key,
     required this.hintText,
     this.icon = Icons.location_on,
     required this.onChanged,

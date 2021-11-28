@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groupool/Views/add_ride.dart';
-import 'package:groupool/Views/addride.dart';
 import 'package:groupool/Views/editprofile.dart';
 import 'package:groupool/Views/ride_list.dart';
 import 'package:groupool/Views/signin.dart';
@@ -30,6 +29,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void initPrefs() async {
+    print("getting prefs");
     prefs = await SharedPreferences.getInstance().then((value) => {
           setState(() {
             prefs = value;
@@ -87,7 +87,6 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.w600,
                       fontSize: 30),
                 )),
-            
             Card(
               elevation: 8.0,
               margin:
@@ -104,44 +103,56 @@ class _HomePageState extends State<HomePage> {
                           Icons.account_circle,
                           size: 100,
                         ),
-                        Padding(padding: const EdgeInsets.symmetric(vertical:6.0),child: Text(
-                          '${userData['Name']}',
-                          style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
-                        ),),
-                            
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical:8.0),
-                          child: Text(email,style: const TextStyle(fontSize: 17
-                          ),),
+                          padding: const EdgeInsets.symmetric(vertical: 6.0),
+                          child: Text(
+                            '${userData['Name']}',
+                            key: ValueKey('name'),
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical:8.0),
-                          child: Text('${userData['Phone']}',style: const TextStyle(fontSize: 15),),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            email,
+                            style: const TextStyle(fontSize: 17),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            '${userData['Phone']}',
+                            key: ValueKey('phone'),
+                            style: const TextStyle(fontSize: 15),
+                          ),
                         )
                       ],
                     ),
                   )),
             ),
-            
             Container(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 child: ElevatedButton(
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(horizontal: 10,vertical:15)),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.pink)),
-              child: const Text(
-                'Edit Profile',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EditProfile()),
-                );
-              },
-            )),
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 15)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.pink)),
+                  child: const Text(
+                    'Edit Profile',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditProfile()),
+                    );
+                  },
+                )),
           ])),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

@@ -42,6 +42,7 @@ class _State extends State<SignInPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("userName"),
                     controller: emailController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -52,6 +53,7 @@ class _State extends State<SignInPage> {
                 Container(
                   padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: TextField(
+                    key: ValueKey("password"),
                     obscureText: true,
                     controller: passwordController,
                     decoration: const InputDecoration(
@@ -71,6 +73,7 @@ class _State extends State<SignInPage> {
                     height: 50,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
+                      key: ValueKey("login"),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.pink)),
@@ -90,11 +93,16 @@ class _State extends State<SignInPage> {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Valid Pwd')));
-                          signInWithEmailPassword(
-                                  emailController.text, passwordController.text, context)
-                              .then((user)=>  {
-                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const HomePage()), (route) => false)
-                              });
+                          signInWithEmailPassword(emailController.text,
+                                  passwordController.text, context)
+                              .then((user) => {
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomePage()),
+                                        (route) => false)
+                                  });
                         }
                       },
                     )),
