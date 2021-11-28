@@ -53,6 +53,7 @@ class _State extends State<SignupPage> {
                   padding: const EdgeInsets.all(10),
                   child: TextField(
                     controller: emailController,
+                    // validator: EmailFieldValidator.validate,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email ID',
@@ -141,7 +142,12 @@ class _State extends State<SignupPage> {
                           registerWithEmailPassword(
                                   emailController.text, passwordController.text)
                               .then((user) => {
-                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const SignInPage()), (route) => false),
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignInPage()),
+                                        (route) => false),
                                     if (user != null)
                                       {print('${user.email} Registered!')}
                                   });
@@ -160,7 +166,9 @@ class _State extends State<SignupPage> {
                           // } catch (e) {
                           //   print(e);
                           // }
-                          registerUser(nameController.text,emailController.text, phoneController.text).then((value) => {});
+                          var successFactor1 = registerUser(nameController.text,
+                                  emailController.text, phoneController.text)
+                              .then((value) => {});
                         }
                       },
                     )),
@@ -187,5 +195,11 @@ class _State extends State<SignupPage> {
                 ))
               ],
             )));
+  }
+}
+
+class EmailFieldValidator {
+  static String? validate(String value) {
+    return value.isEmpty ? 'Email cannot be empty' : null;
   }
 }

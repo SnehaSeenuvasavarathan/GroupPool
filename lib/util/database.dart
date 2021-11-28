@@ -12,7 +12,7 @@ Future<void> storeValues() async {
       });
 }
 
-Future<void> registerUser(String name, String email, String phone) async {
+Future<String> registerUser(String name, String email, String phone) async {
   //String uid='', email='', name = '', phone = '';
   SharedPreferences.getInstance().then((prefs) => {
         firestore.collection('User Profile').add({
@@ -21,9 +21,10 @@ Future<void> registerUser(String name, String email, String phone) async {
           'Phone': '${phone}'
         }).then((value) => {print('User Registered in DB')})
       });
+  return 'Success';
 }
 
-Future<void> addRide(
+Future<String> addRide(
     String start, String end, String time, String email) async {
   //String start='', end='', name = '', time = '';
   SharedPreferences.getInstance().then((prefs) => {
@@ -34,6 +35,7 @@ Future<void> addRide(
           'email': '${email}'
         }).then((value) => {print('Added Ride in DB')})
       });
+  return 'Success';
 }
 
 Future<dynamic> getUserData(String email) async {

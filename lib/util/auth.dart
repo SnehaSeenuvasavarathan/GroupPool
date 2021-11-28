@@ -50,11 +50,14 @@ Future<User?> registerWithEmailPassword(String email, String password) async {
   await Firebase.initializeApp();
   User? user;
 
+  print("going to try");
+
   try {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
+    print("cred over");
 
     user = userCredential.user;
 
@@ -62,6 +65,7 @@ Future<User?> registerWithEmailPassword(String email, String password) async {
       uid = user.uid;
       userEmail = user.email;
     }
+    print("I am here");
   } catch (e) {
     print(e);
   }

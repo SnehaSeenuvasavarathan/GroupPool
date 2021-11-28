@@ -43,6 +43,7 @@ class _State extends State<AddRidePage> {
     initPrefs();
     super.initState();
   }
+
   void initPrefs() async {
     prefs = await SharedPreferences.getInstance().then((value) => {
           setState(() {
@@ -51,6 +52,7 @@ class _State extends State<AddRidePage> {
           })
         });
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -82,7 +84,6 @@ class _State extends State<AddRidePage> {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(16.0),
                     primary: Colors.pink,
-                    
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () => (() async {
@@ -99,7 +100,8 @@ class _State extends State<AddRidePage> {
                     onPressed: () => (() async {
                           if (start_location.isNotEmpty &&
                               end_location.isNotEmpty) {
-                            addRide(start_location, end_location, time, email);
+                            var success_factor = addRide(
+                                start_location, end_location, time, email);
                           } else {
                             print("Dei empty da");
                           }
@@ -111,6 +113,7 @@ class _State extends State<AddRidePage> {
         ));
   }
 }
+
 Future<String> _selectTime(BuildContext context) async {
   final TimeOfDay? picked = await showTimePicker(
     context: context,
