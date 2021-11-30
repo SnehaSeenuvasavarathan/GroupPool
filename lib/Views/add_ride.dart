@@ -30,12 +30,8 @@ class _State extends State<AddRidePage> {
     getRideData().then(
       (data) {
         setState(() {
-          //rideData = data;
-          print('HEREEEEEEEE');
-          //print('${data}');
           if (data != null) {
             rideList = data;
-            print('${rideList}');
           }
         });
       },
@@ -93,6 +89,7 @@ class _State extends State<AddRidePage> {
                     print(time);
                   }()),
                 ),
+                Text('${time}'),
                 TextButton(
                     child: const Text('Continue'),
                     style: TextButton.styleFrom(
@@ -105,9 +102,7 @@ class _State extends State<AddRidePage> {
                               end_location.isNotEmpty) {
                             var success_factor = addRide(
                                 start_location, end_location, time, email);
-                          } else {
-                            print("Dei empty da");
-                          }
+                          } else {}
                         }())),
                 SizedBox(height: size.height * 0.03),
               ],

@@ -2,15 +2,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groupool/Views/add_ride.dart';
 import 'package:groupool/Views/editprofile.dart';
+import 'package:groupool/Views/myRides.dart';
 import 'package:groupool/Views/ride_list.dart';
 import 'package:groupool/Views/signin.dart';
 import 'package:groupool/Views/signup.dart';
 import 'package:groupool/util/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'load.dart';
 
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key, required this.userdata}) : super(key: key);
+  final Map userdata;
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -29,26 +32,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   void initPrefs() async {
-    print("getting prefs");
     prefs = await SharedPreferences.getInstance().then((value) => {
           setState(() {
             prefs = value;
+            // email = 'alpadave@gmail.com';
             email = '${value.getString('useremail')}';
           })
         });
-    getUserData(email).then(
-      (data) {
-        setState(() {
-          userData = data;
-        });
-      },
-    );
-
-    getRideData().then((data) {
-      setState(() {
-        rideData = data;
-      });
-    });
+    if (email != '') {
+      await getUserData(email).then(
+        (data) {
+          setState(() {
+            userData = data;
+          });
+        },
+      );
+    }
   }
 
   String getVal(String key) {
@@ -82,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(10),
                 child: const Text(
                   'Profile',
+                  key: ValueKey("edit"),
                   style: TextStyle(
                       color: Colors.pink,
                       fontWeight: FontWeight.w600,
@@ -107,7 +107,6 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.symmetric(vertical: 6.0),
                           child: Text(
                             '${userData['Name']}',
-                            key: ValueKey('name'),
                             style: const TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.w500),
                           ),
@@ -123,7 +122,6 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Text(
                             '${userData['Phone']}',
-                            key: ValueKey('phone'),
                             style: const TextStyle(fontSize: 15),
                           ),
                         )
@@ -157,12 +155,17 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (i) => {
-          if (i == 3)
+          if (i == 4)
             {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const SignInPage()),
+                  MaterialPageRoute(builder: (context) => SignInPage()),
                   (route) => false)
+            }
+          else if (i == 3)
+            {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => RideCart()))
             }
           else if (i == 2)
             {
@@ -193,7 +196,10 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.add),
             label: "Add Rides",
           ),
-
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_shopping_cart_rounded),
+            label: "Ride Cart",
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.logout),
             label: "Log Out",

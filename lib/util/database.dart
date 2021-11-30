@@ -8,7 +8,7 @@ Future<void> storeValues() async {
         firestore.collection('User Profile').add({
           'UID': '${prefs.getString('uid')}',
           'Email': '${prefs.getString('useremail')}'
-        }).then((value) => {print('lol')})
+        }).then((value) => {print('')})
       });
 }
 
@@ -45,27 +45,82 @@ Future<dynamic> getUserData(String email) async {
         .collection('User Profile')
         .where('Email', isEqualTo: email)
         .get();
-
     return snapshot.docs[0].data();
-  } catch (e) {
-    print(e.toString());
-  }
+  } catch (e) {}
 }
 
 Future<List?> getRideData() async {
   Future<Map> data;
   List rideList = [];
   Map rideList1 = {};
+  List templist = [];
+  try {
+    var snapshot = await firestore.collection('ride-table').get();
+    for (var doc in snapshot.docs) {
+      rideList1 = doc.data();
+      rideList1.putIfAbsent('id', () => doc.id);
+      rideList.add(rideList1);
+    }
+    return rideList;
+  } catch (e) {}
+}
+
+Future<Map?> getRideById(docID) async {
+  Future<Map> data;
+  List rideList = [];
+  Map rideList1 = {};
+  List templist = [];
+  try {
+    var document =
+        FirebaseFirestore.instance.collection('ride-table').doc(docID);
+    var snapshot = await document.get();
+    if (snapshot.exists) {
+      Map<String, dynamic>? data = snapshot.data();
+      if (data != null) {
+        rideList1 = data;
+      }
+    }
+
+    return (rideList1);
+  } catch (e) {}
+}
+
+Future<List?> getCartData(email) async {
+  Future<Map> data;
+  List rideList = [];
+  Map rideList1 = {};
+  List templist = [];
   try {
     var snapshot =
         await FirebaseFirestore.instance.collection('ride-table').get();
     for (var doc in snapshot.docs) {
-      rideList.add(doc.data());
-      print("InLoop");
-      print(doc.data());
+      rideList1 = doc.data();
+      rideList1.putIfAbsent('id', () => doc.id);
+      //rideList1.putIfAbsent('id', () => doc.id);
+      if (rideList1["riderList"] != null) {
+        if (rideList1["riderList"].contains(email)) {
+          rideList.add(rideList1);
+        }
+      }
     }
     return rideList;
-  } catch (e) {
-    print(e.toString());
-  }
+  } catch (e) {}
+}
+
+Future<dynamic> addRider(String riderEmail, String docID) async {
+  try {
+    var document =
+        FirebaseFirestore.instance.collection('ride-table').doc(docID);
+
+    var snapshot = await document.get();
+    if (snapshot.exists) {
+      Map<String, dynamic>? data = snapshot.data();
+      var value = data?['riderList'];
+
+      if (!value.contains(riderEmail) && value.length <= 5) {
+        value.add(riderEmail);
+        document.update({'riderList': value});
+      }
+    }
+  } catch (e) {}
 }

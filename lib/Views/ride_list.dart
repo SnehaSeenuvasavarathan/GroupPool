@@ -50,12 +50,10 @@ class _RideListPageState extends State<RideListPage> {
       (data) {
         setState(() {
           //rideData = data;
-          print('HEREEEEEEEE');
-          //print('${data}');
+
           if (data != null) {
             rideList = data;
             filteredRides = rideList;
-            print('${rideList}');
           }
         });
       },
@@ -76,7 +74,6 @@ class _RideListPageState extends State<RideListPage> {
   @override
   Widget build(BuildContext context) {
     if (!(_searchText.isEmpty)) {
-      print("filtering");
       List tempList = [];
       for (int i = 0; i < rideList.length; i++) {
         if (rideList[i]['start']
@@ -90,7 +87,6 @@ class _RideListPageState extends State<RideListPage> {
       }
       filteredRides = tempList;
     } else {
-      print("resetting");
       filteredRides = rideList;
     }
     return Scaffold(
@@ -102,12 +98,9 @@ class _RideListPageState extends State<RideListPage> {
               icon: _searchIcon,
               onPressed: () {
                 setState(() {
-                  print("Search");
                   if (this._searchIcon.icon == Icons.search) {
-                    print("s2");
                     this._searchIcon =
                         new Icon(Icons.close, color: Colors.white);
-                    print("changing icon...");
                     this._appBarTitle = new TextField(
                       controller: _filter,
                       style: TextStyle(color: Colors.white),
@@ -117,7 +110,6 @@ class _RideListPageState extends State<RideListPage> {
                       ),
                     );
                   } else {
-                    print("Close mode");
                     this._searchIcon =
                         new Icon(Icons.search, color: Colors.white);
                     this._appBarTitle = new Text('Groupool');
@@ -144,7 +136,17 @@ class _RideListPageState extends State<RideListPage> {
                         '${filteredRides[index]['email']}'),
                     trailing: TextButton(
                       child: Text('Request'),
-                      onPressed: () {},
+                      onPressed: () {
+                        addRider(email, '${rideList[index]['id']}').then(
+                          (data) {
+                            setState(() {
+                              if (data != null) {
+                                rideList = data;
+                              }
+                            });
+                          },
+                        );
+                      },
                     ),
                     tileColor: Colors.pink.shade50,
                   ));
@@ -168,9 +170,7 @@ class CustomTile {
 List generateTile(rideList) {
   List l = [];
   for (var i in rideList) {
-    print("in List");
     l.add(i);
   }
-  print(l);
   return l;
 }

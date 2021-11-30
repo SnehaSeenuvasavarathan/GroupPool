@@ -27,10 +27,8 @@ Future<User?> signInWithEmailPassword(
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('auth', true);
-      //print(jsonEncode(user));
       await prefs.setString('useremail', userEmail.toString());
       await prefs.setString('uid', uid.toString());
-      print(prefs.getString('useremail'));
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {
@@ -50,14 +48,11 @@ Future<User?> registerWithEmailPassword(String email, String password) async {
   await Firebase.initializeApp();
   User? user;
 
-  print("going to try");
-
   try {
     UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
-    print("cred over");
 
     user = userCredential.user;
 
@@ -65,7 +60,6 @@ Future<User?> registerWithEmailPassword(String email, String password) async {
       uid = user.uid;
       userEmail = user.email;
     }
-    print("I am here");
   } catch (e) {
     print(e);
   }
