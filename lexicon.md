@@ -13,3 +13,7 @@
 |StatelessWidget | Stateless widget are useful when the part of the user interface you are describing does not depend on anything other than the configuration information in the object itself.|
 |StatefulWidget | A stateful widget is dynamic: for example, it can change its appearance in response to events triggered by user interactions or when it receives data.|
 |Scaffold | A Scaffold Widget provides a framework which implements the basic material design visual layout structure of the flutter app.|
+|expect | This is a function that takes actual as the first argument and compares it against another arument called the matcher.|
+|findsOneWidget | A constant that finds exactly one widget on the widget tree.|
+
+

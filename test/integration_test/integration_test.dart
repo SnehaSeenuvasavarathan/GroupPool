@@ -83,21 +83,6 @@ void main() {
     await tester.enterText(password2, 'Alpa123!');
     await tester.tap(loginButton);
     await tester.pumpAndSettle();
-    //FOR HOME
-    // MaterialApp homePageTest = MaterialApp(
-    //     home: HomePage(
-    //   userdata: {
-    //     'Email': 'jahanvidave78247@gmail.com',
-    //     'Phone': '+9188369819701',
-    //     'Name': 'Jahanvi Dave'
-    //   },
-    // ));
-    // try {
-    //   //await tester.pumpWidget(homePageTest);
-    //   await tester.pump(new Duration(milliseconds: 100));
-    // } catch (e) {
-    //   print('pass');
-    // }
 
     MaterialApp ridecart = MaterialApp(home: RideCart());
     await tester.pumpWidget(ridecart);
