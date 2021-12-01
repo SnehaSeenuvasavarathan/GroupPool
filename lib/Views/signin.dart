@@ -130,6 +130,7 @@ class _State extends State<SignInPage> {
                     const Text("Does not have account?"),
                     FlatButton(
                       textColor: Colors.blue,
+                      key: const Key('Signupbutton'),
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(fontSize: 20),
