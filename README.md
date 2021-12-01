@@ -11,20 +11,15 @@ This is a carpooling service, targetting people who commute to work or school ev
 | <img src="images/signup.jpeg" width="200"> | <img src="images/login.jpeg" width="200"> | <img src="images/profile.jpeg" width="200">  |
 
 
-* Create the user profile.
-<img src="images/signup.jpeg" width="200">
+| Add rides                                                                                                           | Find rides                                                                                                          | Ride cart                                                                                                          |
+|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| <img src="images/addRides.jpeg" width="200"> | <img src="images/findRides.jpeg" width="200"> | <img src="images/rideCart.jpeg" width="200">  |
 
-* Login and authentication
-<img src="images/login.jpeg" width="200">
 
-* view user profile.
-<img src="images/profile.jpeg" width="200">
+| Ride details                                                                                                           | Pay                                                                                                         |
+|---------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| <img src="images/rideDetail.jpeg" width="200"> | <img src="images/pay.jpeg" width="200"> | 
 
-* Create a new ride.
-<img src="images/addRide.jpeg" width="200">
-
-* View available rides.
-<img src="images/findRide.jpeg" width="200">
 
 ## Authors
 
