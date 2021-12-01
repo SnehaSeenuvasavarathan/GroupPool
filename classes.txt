@@ -1,4 +1,4 @@
-The following is the list of classes that are likely to be required for the project
+The following is the list of classes that are added for the project
 
 SignUpPage- 
     -Allows users to sign up for the app using user email, password andd phone number. 
@@ -16,15 +16,11 @@ AddRidePage-
 RideListPage-
     -Displays the list of rides available with the source, destination, time and the driver information
     -Provides the option to request ride
-
-upcoming:
-
-EditProfile-
-    -Users should be able to edit their personal information
-GroupPeople-
-    -Groups people who have requested to share the ride
-ChatBox-
-    -Users can chat with other users who initiate the ride
+RideDetail-
+    -Displays ride creator and ride requester details. 
+    -Shows the bill to be payed and implements the pay feature
+RideCart-
+    -Displays a list of all rides requested by a user
 
     
 
