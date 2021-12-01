@@ -27,10 +27,8 @@ Future<User?> signInWithEmailPassword(
 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('auth', true);
-      //print(jsonEncode(user));
       await prefs.setString('useremail', userEmail.toString());
       await prefs.setString('uid', uid.toString());
-      print(prefs.getString('useremail'));
     }
   } on FirebaseAuthException catch (e) {
     if (e.code == 'user-not-found') {

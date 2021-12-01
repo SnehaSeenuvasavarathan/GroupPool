@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:groupool/Views/add_ride.dart';
-import 'package:groupool/Views/addride.dart';
 import 'package:groupool/Views/editprofile.dart';
+import 'package:groupool/Views/myRides.dart';
 import 'package:groupool/Views/ride_list.dart';
 import 'package:groupool/Views/signin.dart';
 import 'package:groupool/Views/signup.dart';
 import 'package:groupool/util/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+import 'load.dart';
 
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key, required this.userdata}) : super(key: key);
+  final Map userdata;
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -33,22 +35,19 @@ class _HomePageState extends State<HomePage> {
     prefs = await SharedPreferences.getInstance().then((value) => {
           setState(() {
             prefs = value;
+            // email = 'alpadave@gmail.com';
             email = '${value.getString('useremail')}';
           })
         });
-    getUserData(email).then(
-      (data) {
-        setState(() {
-          userData = data;
-        });
-      },
-    );
-
-    getRideData().then((data) {
-      setState(() {
-        rideData = data;
-      });
-    });
+    if (email != '') {
+      await getUserData(email).then(
+        (data) {
+          setState(() {
+            userData = data;
+          });
+        },
+      );
+    }
   }
 
   String getVal(String key) {
@@ -82,12 +81,12 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(10),
                 child: const Text(
                   'Profile',
+                  key: ValueKey("edit"),
                   style: TextStyle(
                       color: Colors.pink,
                       fontWeight: FontWeight.w600,
                       fontSize: 30),
                 )),
-            
             Card(
               elevation: 8.0,
               margin:
@@ -104,54 +103,69 @@ class _HomePageState extends State<HomePage> {
                           Icons.account_circle,
                           size: 100,
                         ),
-                        Padding(padding: const EdgeInsets.symmetric(vertical:6.0),child: Text(
-                          '${userData['Name']}',
-                          style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500),
-                        ),),
-                            
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical:8.0),
-                          child: Text(email,style: const TextStyle(fontSize: 17
-                          ),),
+                          padding: const EdgeInsets.symmetric(vertical: 6.0),
+                          child: Text(
+                            '${userData['Name']}',
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical:8.0),
-                          child: Text('${userData['Phone']}',style: const TextStyle(fontSize: 15),),
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            email,
+                            style: const TextStyle(fontSize: 17),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text(
+                            '${userData['Phone']}',
+                            style: const TextStyle(fontSize: 15),
+                          ),
                         )
                       ],
                     ),
                   )),
             ),
-            
             Container(
-              margin:
-                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
                 child: ElevatedButton(
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.symmetric(horizontal: 10,vertical:15)),
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.pink)),
-              child: const Text(
-                'Edit Profile',
-                style: TextStyle(fontSize: 20),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const EditProfile()),
-                );
-              },
-            )),
+                  style: ButtonStyle(
+                      padding: MaterialStateProperty.all<EdgeInsets>(
+                          const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 15)),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.pink)),
+                  child: const Text(
+                    'Edit Profile',
+                    style: TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const EditProfile()),
+                    );
+                  },
+                )),
           ])),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         onTap: (i) => {
-          if (i == 3)
+          if (i == 4)
             {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const SignInPage()),
+                  MaterialPageRoute(builder: (context) => SignInPage()),
                   (route) => false)
+            }
+          else if (i == 3)
+            {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => RideCart()))
             }
           else if (i == 2)
             {
@@ -182,7 +196,10 @@ class _HomePageState extends State<HomePage> {
             icon: Icon(Icons.add),
             label: "Add Rides",
           ),
-
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add_shopping_cart_rounded),
+            label: "Ride Cart",
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.logout),
             label: "Log Out",

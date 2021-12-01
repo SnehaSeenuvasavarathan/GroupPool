@@ -52,7 +52,9 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("emailID"),
                     controller: emailController,
+                    // validator: EmailFieldValidator.validate,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Email ID',
@@ -63,6 +65,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("userName"),
                     controller: nameController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -73,6 +76,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("password"),
                     obscureText: true,
                     controller: passwordController,
                     decoration: const InputDecoration(
@@ -84,6 +88,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("confirmPassword"),
                     obscureText: true,
                     controller: confirmPasswordController,
                     decoration: const InputDecoration(
@@ -95,6 +100,7 @@ class _State extends State<SignupPage> {
                 Container(
                   padding: const EdgeInsets.all(10),
                   child: TextField(
+                    key: ValueKey("number"),
                     controller: phoneController,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
@@ -106,6 +112,7 @@ class _State extends State<SignupPage> {
                     height: 50,
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ElevatedButton(
+                      key: ValueKey("submit"),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.pink)),
@@ -141,7 +148,12 @@ class _State extends State<SignupPage> {
                           registerWithEmailPassword(
                                   emailController.text, passwordController.text)
                               .then((user) => {
-                                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>const SignInPage()), (route) => false),
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const SignInPage()),
+                                        (route) => false),
                                     if (user != null)
                                       {print('${user.email} Registered!')}
                                   });
@@ -160,7 +172,9 @@ class _State extends State<SignupPage> {
                           // } catch (e) {
                           //   print(e);
                           // }
-                          registerUser(nameController.text,emailController.text, phoneController.text).then((value) => {});
+                          var successFactor1 = registerUser(nameController.text,
+                                  emailController.text, phoneController.text)
+                              .then((value) => {});
                         }
                       },
                     )),
@@ -187,5 +201,11 @@ class _State extends State<SignupPage> {
                 ))
               ],
             )));
+  }
+}
+
+class EmailFieldValidator {
+  static String? validate(String value) {
+    return value.isEmpty ? 'Email cannot be empty' : null;
   }
 }

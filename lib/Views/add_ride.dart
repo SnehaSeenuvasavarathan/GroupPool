@@ -30,12 +30,8 @@ class _State extends State<AddRidePage> {
     getRideData().then(
       (data) {
         setState(() {
-          //rideData = data;
-          print('HEREEEEEEEE');
-          //print('${data}');
           if (data != null) {
             rideList = data;
-            print('${rideList}');
           }
         });
       },
@@ -43,6 +39,7 @@ class _State extends State<AddRidePage> {
     initPrefs();
     super.initState();
   }
+
   void initPrefs() async {
     prefs = await SharedPreferences.getInstance().then((value) => {
           setState(() {
@@ -51,6 +48,7 @@ class _State extends State<AddRidePage> {
           })
         });
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -66,12 +64,14 @@ class _State extends State<AddRidePage> {
                 SizedBox(height: size.height * 0.03),
                 SizedBox(height: size.height * 0.03),
                 RoundedInputField(
+                  key: ValueKey('start'),
                   hintText: "Enter Start Location",
                   onChanged: (value) {
                     start_location = value;
                   },
                 ),
                 RoundedInputField(
+                  key: ValueKey('end'),
                   hintText: "Enter End Location",
                   onChanged: (value) {
                     end_location = value;
@@ -82,13 +82,14 @@ class _State extends State<AddRidePage> {
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.all(16.0),
                     primary: Colors.pink,
-                    
                     textStyle: const TextStyle(fontSize: 20),
                   ),
                   onPressed: () => (() async {
                     time = await _selectTime(context) as String;
+                    print(time);
                   }()),
                 ),
+                Text('${time}'),
                 TextButton(
                     child: const Text('Continue'),
                     style: TextButton.styleFrom(
@@ -99,10 +100,9 @@ class _State extends State<AddRidePage> {
                     onPressed: () => (() async {
                           if (start_location.isNotEmpty &&
                               end_location.isNotEmpty) {
-                            addRide(start_location, end_location, time, email);
-                          } else {
-                            print("Dei empty da");
-                          }
+                            var success_factor = addRide(
+                                start_location, end_location, time, email);
+                          } else {}
                         }())),
                 SizedBox(height: size.height * 0.03),
               ],
@@ -111,6 +111,7 @@ class _State extends State<AddRidePage> {
         ));
   }
 }
+
 Future<String> _selectTime(BuildContext context) async {
   final TimeOfDay? picked = await showTimePicker(
     context: context,
