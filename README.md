@@ -1,3 +1,4 @@
+[![Build Status](https://app.travis-ci.com/SnehaSeenuvasavarathan/GroupPool.svg?branch=master)](https://app.travis-ci.com/SnehaSeenuvasavarathan/GroupPool)
 # GrouPool
 
 ## Description
