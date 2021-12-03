@@ -1,4 +1,5 @@
-# SD
+# Installation
+
 **Prerequisites:**
 
  - [Android Studio](https://developer.android.com/studio) or any IDE to open Flutter project
@@ -8,6 +9,7 @@
 1. Install Flutter by following instructions from [flutter.dev](https://flutter.dev). To summarise:
    - Select the appropriate operating system
    - Download the flutter sdk to a preferred location on your local system.
+   
 2. Fork and clone the [mentorship-flutter](https://github.com/anitab-org/mentorship-flutter) repository to your local machine.
 3. Make sure to install the **Flutter** and **Dart** plugins.
    - If mentorship Flutter is the first project that you will be viewing in Android Studio then:
