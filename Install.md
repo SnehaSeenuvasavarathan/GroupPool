@@ -4,6 +4,7 @@
 
  - [Android Studio](https://developer.android.com/studio) or any IDE to open Flutter project
  - JDK
+ 
 **Installations:**
 
 1. Install Flutter by following instructions from [flutter.dev](https://flutter.dev). To summarise:
